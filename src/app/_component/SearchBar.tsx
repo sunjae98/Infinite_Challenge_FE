@@ -1,14 +1,32 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SyntheticEvent } from 'react'
-import { useIsinputFocusStore } from '@/store/store'
+import { useIsinputFocusStore, useRecSearchListStore, useSearchTermStore } from '@/store/store'
 import SearchBox from './SearchBox' // SearchBox 컴포넌트 임포트
+import axios from 'axios'
 
 export default function SearchBar() {
   const { isInputFocused, setIsInputFocused } = useIsinputFocusStore()
-  const [searchTerm, setSearchTerm] = useState('')
+  const { setRecSearchList } = useRecSearchListStore()
+  const { searchTerm, setSearchTerm } = useSearchTermStore()
+
+  const getRecSearchWord = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.clinicaltrialskorea.com/api/v1/search-conditions/?name=${searchTerm}`,
+      )
+      setRecSearchList(response.data)
+    } catch (error) {}
+  }
+  useEffect(() => {
+    if (searchTerm) {
+      console.log(searchTerm)
+      getRecSearchWord()
+    }
+    console.log(searchTerm)
+  }, [searchTerm, setRecSearchList])
 
   const handleSearch = () => {
     console.log('검색어:', searchTerm)
