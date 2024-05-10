@@ -3,10 +3,11 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import { SyntheticEvent } from 'react'
+import { useIsinputFocusStore } from '@/store/store'
 
 export default function SearchBar() {
+  const { isInputFocused, setIsInputFocused } = useIsinputFocusStore()
   const [searchTerm, setSearchTerm] = useState('')
-  const [isInputFocused, setIsInputFocused] = useState(false)
 
   const handleSearch = () => {
     console.log('검색어:', searchTerm)
