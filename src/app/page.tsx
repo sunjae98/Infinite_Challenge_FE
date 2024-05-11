@@ -1,6 +1,7 @@
 import Header from '@/app/_component/Header'
 import SearchBar from '@/app/_component/SearchBar'
 import SearchNotFound from '@/app/_component/SearchNotFound'
+import SearchResult from '@/app/_component/SearchResult'
 
 export default function Home() {
   return (
@@ -13,7 +14,8 @@ export default function Home() {
         <SearchBar />
       </div>
       <div className="max-w-full h-[462.49px] bg-white flex-col items-center gap-10 flex">
-        <SearchNotFound />
+        {/* <SearchNotFound /> */}
+        <SearchResult />
       </div>
     </main>
   )
